@@ -1,4 +1,4 @@
-import { Day } from './day';
+import { AssignmentBase } from './day';
 import day1 from './day1/index';
 // MORE IMPORTS HERE
 const days: any[] = [

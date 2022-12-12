@@ -1,7 +1,7 @@
-import { Day } from '../day';
+import { AssignmentBase } from '../day';
 import { split, pipe, map, sum } from 'ramda';
 
-class Day1 extends Day<number[][]> {
+class Assignment extends AssignmentBase<number[][]> {
   constructor() {
     super(1, pipe(split('\n\n'), map(pipe(split('\n'), map(Number)))));
   }
@@ -18,4 +18,4 @@ class Day1 extends Day<number[][]> {
   }
 }
 
-export default new Day1();
+export default new Assignment();

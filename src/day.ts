@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-abstract class Day<TInput> {
+abstract class AssignmentBase<TInput> {
   id: number;
   transform: (arg: string) => TInput;
 
@@ -11,7 +11,7 @@ abstract class Day<TInput> {
 
   partOne(): string {
     const content = fs
-      .readFileSync(`./inputs/day${this.id}/part1.txt`)
+      .readFileSync(`./src/day${this.id}/inputs/part1.txt`)
       .toString();
     const result = this.solveForPartOne(this.transform(content));
     return result;
@@ -21,7 +21,7 @@ abstract class Day<TInput> {
 
   partTwo(): string {
     const content = fs
-      .readFileSync(`./inputs/day${this.id}/part2.txt`)
+      .readFileSync(`./src/day${this.id}/inputs/part2.txt`)
       .toString();
     const result = this.solveForPartTwo(this.transform(content));
     return result;
@@ -30,4 +30,4 @@ abstract class Day<TInput> {
   abstract solveForPartTwo(content: TInput): string;
 }
 
-export { Day };
+export { AssignmentBase };
