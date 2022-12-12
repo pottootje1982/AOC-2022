@@ -1,28 +1,33 @@
 import fs from 'fs';
 
-abstract class Day {
-    
-    id: number;
+abstract class Day<TInput> {
+  id: number;
+  transform: (arg: string) => TInput;
 
-    constructor(id: number){
-        this.id = id;
-    }
-    
-    async partOne(): Promise<string> {
-        const content = await fs.promises.readFile(`./inputs/day${this.id}/part1.txt`);
-        const result = this.solveForPartOne(content.toString());
-        return result;
-    }   
+  constructor(id: number, transform: (arg: string) => any) {
+    this.id = id;
+    this.transform = transform;
+  }
 
-    abstract solveForPartOne(input: string) : string;
+  partOne(): string {
+    const content = fs
+      .readFileSync(`./inputs/day${this.id}/part1.txt`)
+      .toString();
+    const result = this.solveForPartOne(this.transform(content));
+    return result;
+  }
 
-    async partTwo(): Promise<string> {
-        const content = await fs.promises.readFile(`./inputs/day${this.id}/part2.txt`);
-        const result = this.solveForPartTwo(content.toString());
-        return result;
-    }
+  abstract solveForPartOne(content: TInput): string;
 
-    abstract solveForPartTwo(input: string) : string;
+  partTwo(): string {
+    const content = fs
+      .readFileSync(`./inputs/day${this.id}/part2.txt`)
+      .toString();
+    const result = this.solveForPartTwo(this.transform(content));
+    return result;
+  }
+
+  abstract solveForPartTwo(content: TInput): string;
 }
 
-export {Day};
+export { Day };
