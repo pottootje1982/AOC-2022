@@ -33,7 +33,6 @@ class Assignment extends AssignmentBase<string[]> {
   solveForPartTwo(content: string[]): any {
     const getScore = (strat: string) =>
       shape[shape2[strat]] + resultScore[strat[2]];
-    console.log(R.map(getScore)(content));
     const getSolution = R.pipe(R.map(getScore), R.sum);
     return getSolution(content);
   }

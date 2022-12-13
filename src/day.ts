@@ -1,4 +1,10 @@
 import fs from 'fs';
+import { map, pipe } from 'ramda';
+
+export type anyFunc = (_: any) => any;
+
+export const recursiveMap = (...fns: anyFunc[]): anyFunc =>
+  fns.length === 1 ? fns[0] : pipe(fns[0], map(recursiveMap(...fns.slice(1))));
 
 abstract class AssignmentBase<TInput> {
   id: number;
