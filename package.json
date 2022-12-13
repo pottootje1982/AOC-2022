@@ -42,7 +42,8 @@
       "js",
       "jsx",
       "json",
-      "node"
+      "node",
+      "txt"
     ],
     "roots": [
       "<rootDir>/src"

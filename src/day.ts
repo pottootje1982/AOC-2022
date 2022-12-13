@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { map, pipe } from 'ramda';
+import { map, pipe, identity } from 'ramda';
 
 export type anyFunc = (_: any) => any;
 
@@ -10,7 +10,7 @@ abstract class AssignmentBase<TInput> {
   id: number;
   transform: (arg: string) => TInput;
 
-  constructor(id: number, transform: (arg: string) => any) {
+  constructor(id: number, transform: (arg: string) => any = identity) {
     this.id = id;
     this.transform = transform;
   }

@@ -6,6 +6,6 @@ describe('On Day 4', () => {
   });
 
   it(`part 2`, () => {
-    expect(assignment.partTwo()).toBe(undefined);
+    expect(assignment.partTwo()).toBe(821);
   });
 });
