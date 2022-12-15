@@ -3,7 +3,7 @@ import { split, pipe, map, sum } from 'ramda';
 
 class Assignment extends AssignmentBase<number[][]> {
   constructor() {
-    super(1, pipe(split('\n\n'), map(pipe(split('\n'), map(Number)))));
+    super(__dirname, pipe(split('\n\n'), map(pipe(split('\n'), map(Number)))));
   }
 
   solveForPartOne(content: number[][]): any {

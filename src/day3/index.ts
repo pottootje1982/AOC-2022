@@ -22,7 +22,7 @@ const containedInAll = ([str1, str2, str3]: string[][]) =>
 
 class Assignment extends AssignmentBase<string[]> {
   constructor() {
-    super(3, R.split('\n'));
+    super(__dirname, R.split('\n'));
   }
 
   solveForPartOne(content: string[]): any {

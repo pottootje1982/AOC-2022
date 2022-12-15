@@ -60,7 +60,7 @@ interface Result {
 
 class Assignment extends AssignmentBase<Command[]> {
   constructor() {
-    super(7, recursiveMap(R.split('$ '), parse));
+    super(__dirname, recursiveMap(R.split('$ '), parse));
   }
 
   solveForPartOne(input: Command[]): any {

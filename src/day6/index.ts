@@ -13,7 +13,7 @@ const getMarker = (str: string, markerLength: number = 4) => {
 
 class Assignment extends AssignmentBase<string> {
   constructor() {
-    super(6);
+    super(__dirname);
   }
 
   solveForPartOne(input: string): any {

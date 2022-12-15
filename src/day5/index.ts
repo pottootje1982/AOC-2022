@@ -69,7 +69,7 @@ const solve = (
 
 class Assignment extends AssignmentBase<string[][]> {
   constructor() {
-    super(5, recursiveMap(R.split('\n\n'), R.split('\n')));
+    super(__dirname, recursiveMap(R.split('\n\n'), R.split('\n')));
   }
 
   solveForPartOne([towersStr, instructionsStr]: string[][]): any {

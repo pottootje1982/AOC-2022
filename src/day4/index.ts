@@ -19,7 +19,7 @@ const mutOverlap = ([range1, range2]: number[][]) =>
 
 class Assignment extends AssignmentBase<number[][][]> {
   constructor() {
-    super(4, recursiveMap(split('\n'), split(','), split('-'), Number));
+    super(__dirname, recursiveMap(split('\n'), split(','), split('-'), Number));
   }
 
   solveForPartOne(content: number[][][]): any {

@@ -21,7 +21,7 @@ const shape: { [key: string]: number } = {
 
 class Assignment extends AssignmentBase<string[]> {
   constructor() {
-    super(2, R.split('\n'));
+    super(__dirname, R.split('\n'));
   }
 
   solveForPartOne(content: string[]): any {

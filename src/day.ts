@@ -7,18 +7,16 @@ export const recursiveMap = (...fns: anyFunc[]): anyFunc =>
   fns.length === 1 ? fns[0] : pipe(fns[0], map(recursiveMap(...fns.slice(1))));
 
 abstract class AssignmentBase<TInput> {
-  id: number;
+  path: string;
   transform: (arg: string) => TInput;
 
-  constructor(id: number, transform: (arg: string) => any = identity) {
-    this.id = id;
+  constructor(path: string, transform: (arg: string) => any = identity) {
+    this.path = path;
     this.transform = transform;
   }
 
   partOne(): string {
-    const content = fs
-      .readFileSync(`./src/day${this.id}/inputs/part1.txt`)
-      .toString();
+    const content = fs.readFileSync(`${this.path}/inputs/part1.txt`).toString();
     const result = this.solveForPartOne(this.transform(content));
     return result;
   }
@@ -26,9 +24,7 @@ abstract class AssignmentBase<TInput> {
   abstract solveForPartOne(content: TInput): string;
 
   partTwo(): string {
-    const content = fs
-      .readFileSync(`./src/day${this.id}/inputs/part2.txt`)
-      .toString();
+    const content = fs.readFileSync(`${this.path}/inputs/part2.txt`).toString();
     const result = this.solveForPartTwo(this.transform(content));
     return result;
   }
