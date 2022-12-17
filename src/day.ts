@@ -15,21 +15,21 @@ abstract class AssignmentBase<TInput> {
     this.transform = transform;
   }
 
-  partOne(): string {
+  partOne(...input: any[]): string {
     const content = fs.readFileSync(`${this.path}/inputs/part1.txt`).toString();
-    const result = this.solveForPartOne(this.transform(content));
+    const result = this.solveForPartOne(this.transform(content), ...input);
     return result;
   }
 
-  abstract solveForPartOne(content: TInput): string;
+  abstract solveForPartOne(content: TInput, ...input: any[]): string;
 
-  partTwo(): string {
+  partTwo(...input: any[]): string {
     const content = fs.readFileSync(`${this.path}/inputs/part2.txt`).toString();
-    const result = this.solveForPartTwo(this.transform(content));
+    const result = this.solveForPartTwo(this.transform(content), ...input);
     return result;
   }
 
-  abstract solveForPartTwo(content: TInput): string;
+  abstract solveForPartTwo(content: TInput, ...input: any[]): string;
 }
 
 export { AssignmentBase };
