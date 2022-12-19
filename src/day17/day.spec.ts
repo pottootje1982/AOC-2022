@@ -1,8 +1,8 @@
 // @ts-nocheck
 import assignment, {
   overlayOne,
+  noOverlap,
   overlayN,
-  padRockTop,
   add,
   rock1,
   rock4,
@@ -12,26 +12,15 @@ import assignment, {
   nEmpty,
   stackEmpty,
   stackEmptyTop,
+  empty,
 } from './index';
 
-const t = (a) => a.split('\n').slice(1);
-
-const lines1 = t(`
-# ##
-####`);
-
-const lines2 = [` #  `];
+const rock = [`#`];
+const floor = ['# ##', '####'];
 
 describe('On Day 17', () => {
-  it('pads rock', () => {
-    const expected = t(`
-   # ##
-   ####`);
-    expect(padRockTop(3, lines1)).toEqual(expected);
-  });
-
-  it('overlays', () => {
-    expect(overlayOne('# # ', ' #  ')).toBe('### ');
+  it('overlayOne', () => {
+    expect(overlayOne(1)('#', '# # ').join('')).toBe('### ');
   });
 
   it('adds', () => {
@@ -41,47 +30,48 @@ describe('On Day 17', () => {
     expect(add(rock4, 5, 1)).toBe(6);
   });
 
-  it('overlayN', () => {
-    const expected = t(`
-####
-####`);
-    expect(
-      overlayN(stackEmpty(1, 3, lines2), stackEmpty(1, undefined, lines1))
-    ).toEqual([undefined, ...expected]);
+  it('overlay', () => {
+    expect(overlayN(1, 1, rock, stackEmpty(1, floor))).toEqual([
+      undefined,
+      '####'.split(''),
+      '####',
+    ]);
+    expect(() => overlayN(2, rock, stackEmpty(1, floor))).toThrow();
   });
 
-  it.only(`stackEmpty`, () => {
-    expect(stackEmpty(1, 3, lines2)).toEqual([undefined, ' #  ', undefined]);
-    expect(stackEmpty(-1, undefined, [undefined, undefined, 'xxxx'])).toEqual([
-      undefined,
-      'xxxx',
-    ]);
+  it('tryOverlay2', () => {
+    const lines = stackEmpty(3, floor);
+    expect(noOverlap(0, 0, rock4, lines)).toBeFalsy();
+    expect(noOverlap(0, 1, rock4, lines)).toBeTruthy();
+    expect(noOverlap(1, 1, rock4, lines)).toBeFalsy();
+    expect(noOverlap(2, 0, rock4, lines)).toBeFalsy();
+  });
+
+  it(`stackEmpty`, () => {
+    expect(stackEmpty(1, rock)).toEqual([undefined, '#']);
+    expect(stackEmpty(-1, [empty, empty, 'xxxx'])).toEqual([empty, 'xxxx']);
   });
 
   it(`stackEmptyTop`, () => {
-    const lines = [...nEmpty(2), '#######'];
+    const lines = [empty, empty, '#######'];
     expect(stackEmptyTop(rock5, lines)).toEqual([...nEmpty(5), '#######']);
   });
 
   it(`run`, () => {
-    const state = new State();
-    const directions = [1, 1, 1, 1];
-    const { floor } = run(state, directions);
-    expect(floor).toEqual([
-      undefined,
-      undefined,
-      undefined,
-      '   ####',
-      '#######',
-    ]);
-    expect(directions).toEqual([]);
+    const state = new State(1, [1, 1, 1, 1]);
+    const { floor } = run(state);
+    expect(floor).toEqual([empty, empty, empty, '   ####', '#######']);
   });
 
-  it.only(`part 1`, () => {
-    expect(assignment.partOne()).toBe(3181);
+  it(`test input`, () => {
+    expect(assignment.partOne(10)).toBe(17);
   });
 
-  it(`part 2`, () => {
+  it(`real input part 1`, () => {
+    expect(assignment.partTwo(20220)).toBe(3181);
+  });
+
+  xit(`part 2`, () => {
     expect(assignment.partTwo()).toBe(undefined);
   });
 });
